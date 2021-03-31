@@ -16,12 +16,19 @@ public class NTree {
         return root;
     }
     
+    //Muestra el árbol
+    public void showTree(Node p){
+        
+    }
+    
     //Muestra un nodo dado
     public void showNode(Node p){
         Node q = p;
+        boolean found = false;
         while (q != null){
             if (q.getSw() == 0)
-                JOptionPane.showMessageDialog(null, "A basic JOptionPane message dialog");
+                JOptionPane.showMessageDialog(null, "El elemento " + " se encontró");
+                
             else 
                 showNode(q.getLinkList());
             q = q.getLink();
@@ -31,6 +38,51 @@ public class NTree {
     //Ingresa un dato dado
     public void insert(){
         
+    }
+    
+    //Ingresa un dato dado
+    public void erase(){
+        
+    }
+
+    void searchData(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void showRoots(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void countLeafs(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void showLeafs(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void gradeTree(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void gradeData(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void DataSons(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void showLevel(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void showHIgh(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void fatherData(Node root) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
