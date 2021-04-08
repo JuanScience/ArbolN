@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
  */
 public class ArbolN {
     
-    private static NTree N;
+    private static NTree N = new NTree();
 
     public static void main(String[] args) {
         mainMenu();
@@ -28,19 +28,36 @@ public class ArbolN {
                 option = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch(option)
                 {
-                    case 1: N.showTree(N.getRoot());
+                    case 1: 
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            String tree = "";
+                            JOptionPane.showMessageDialog(null, N.showTree(N.getRoot(), tree));
+                        }
                         break;
 
-                    case 2: N.insert();
+                    case 2:
+                        insert();
                         break;
 
                     case 3: N.erase();
                         break;
 
-                    case 4: N.getRoot();
+                    case 4: 
+                        if(N.getRoot() == null){
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        }else{
+                            JOptionPane.showMessageDialog(null, "La raiz del árbol es: " + N.getRoot());
+                        }
                         break;
                     
-                    case 5: N.searchData(N.getRoot());
+                    case 5: 
+                        if(N.getRoot() == null){
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        }else{
+                            searchDataMenu();
+                        }
                         break;
 
                     case 6: N.showRoots(N.getRoot());
@@ -74,12 +91,51 @@ public class ArbolN {
                         break;
 
                     case 0: System.exit(0);
-                        break;                
+                        break;
                 }
             }catch(NumberFormatException ex){
                JOptionPane.showMessageDialog(null,"Opción no válida");
             }
         }while(option != 0);       
+    }
+
+    public static void insert() {
+        String mData = "***Ingreso***"
+                + "\nPor favor ingrese el dato a ingresar en el árbol:";
+        String mFather = "***Ingreso***"
+                + "\nPor favor ingrese el padre del dato a ingresar:";
+        int option = -1;
+        
+        try{
+            option = Integer.parseInt(JOptionPane.showInputDialog(mData));
+            Node newNode = new Node(option);
+            if(N.getRoot() == null){
+                N.insert(N.getRoot(), newNode, 0);
+            }
+            else{
+                int father = Integer.parseInt(JOptionPane.showInputDialog(mFather));
+                N.insert(N.getRoot(), newNode, father);
+            }
+        }catch(NumberFormatException ex){
+           JOptionPane.showMessageDialog(null, "Opción no válida");
+        }
+    }
+
+    private static void searchDataMenu() {
+        String mSearchData = "***Buscar***"
+                + "\nPor favor ingrese el dato a buscar en el árbol:";
+        int option = -1;
+        
+        try{
+            option = Integer.parseInt(JOptionPane.showInputDialog(mSearchData));
+            boolean answer = false;
+            if(N.searchData(N.getRoot(), option, answer))
+                JOptionPane.showMessageDialog(null, "El dato se encuentra en el árbol");
+            else
+                JOptionPane.showMessageDialog(null, "El dato no se encuentra en el árbol");     
+        }catch(NumberFormatException ex){
+           JOptionPane.showMessageDialog(null, "Opción no válida");
+        }
     }
     
 }
