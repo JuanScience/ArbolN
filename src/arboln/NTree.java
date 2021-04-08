@@ -1,10 +1,14 @@
-
 package arboln;
 
 import javax.swing.JOptionPane;
 
 public class NTree {
     Node root;
+    
+    //Constructor
+    public NTree() {
+      root = null;
+    }
 
     //Método set del parámetro root
     public void setRoot(Node root) {
@@ -17,8 +21,22 @@ public class NTree {
     }
     
     //Muestra el árbol
-    public void showTree(Node p){
-        
+    public String showTree(Node p, String tree){
+        Node q = p;
+        while (q != null){
+            if (q.getSw() == 0){
+                tree = tree + q.getData() + " ";
+                if (p == q)
+                    tree = tree + "( ";
+            }else{
+                tree = showTree(q.getLinkList(), tree);
+            }
+            q = q.getLink();
+            if (q == null){
+                tree = tree + ") ";
+            }
+        }
+        return tree;
     }
     
     //Muestra un nodo dado
@@ -28,7 +46,6 @@ public class NTree {
         while (q != null){
             if (q.getSw() == 0)
                 JOptionPane.showMessageDialog(null, "El elemento " + " se encontró");
-                
             else 
                 showNode(q.getLinkList());
             q = q.getLink();
@@ -36,17 +53,47 @@ public class NTree {
     }
     
     //Ingresa un dato dado
-    public void insert(){
-        
+    public void insert(Node fatherNode, Node newNode, int father){
+        if (this.getRoot() != null){
+            Node q = fatherNode;
+            Node test = fatherNode;
+            while (q != null){
+                if (q.getSw() == 0){
+                    if(q.getLink() == null && test.getData() == father){
+                        q.setLink(newNode);
+                        q = q.getLink();
+                    }else if(q.getData() == father && test != q){
+                        q.setSw(1);
+                        Node newFather = new Node(father);
+                        q.setLinkList(newFather);
+                        newFather.setLink(newNode);
+                    }
+                }else{
+                    insert(q.getLinkList(), newNode, father);
+                }
+                q = q.getLink();
+            }
+        }else
+            this.setRoot(newNode);
     }
     
     //Ingresa un dato dado
     public void erase(){
-        
+        this.setRoot(null);
     }
 
-    void searchData(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean searchData(Node p, int data, boolean answer) {
+        Node q = p;
+        while (q != null){
+            if (q.getSw() == 0){
+                if(q.getData() == data)
+                    answer = true;
+            }else{
+                answer = searchData(q.getLinkList(), data, answer);
+            }
+            q = q.getLink();
+        }
+        return answer;
     }
 
     void showRoots(Node root) {
