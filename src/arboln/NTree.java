@@ -103,6 +103,11 @@ public class NTree {
                 }
             }else{
                 erase(q.getLinkList(), data);
+                if (q.getLinkList().getLink() == null){
+                    q.setData(q.getLinkList().getData());
+                    q.setSw(0);
+                    q.setLinkList(null);
+                }
             }
             ant = q;
             q = q.getLink();
