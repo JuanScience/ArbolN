@@ -49,7 +49,7 @@ public class ArbolN {
                         if(N.getRoot() == null){
                             JOptionPane.showMessageDialog(null, "El árbol está vacío");
                         }else{
-                            JOptionPane.showMessageDialog(null, "La raiz del árbol es: " + N.getRoot());
+                            JOptionPane.showMessageDialog(null, "La raiz del árbol es: " + N.getRoot().getData());
                         }
                         break;
                     
