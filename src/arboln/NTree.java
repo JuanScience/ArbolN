@@ -53,16 +53,17 @@ public class NTree {
     }
     
     //Ingresa un dato dado
-    public void insert(Node fatherNode, Node newNode, int father){
+    public void insert(Node fatherNode, Node newNode, int father){ //Revisar????????????????????????????????????????????????????????????????????
         if (this.getRoot() != null){
             Node q = fatherNode;
             Node test = fatherNode;
             while (q != null){
+                if(q.getLink() == null && test.getData() == father){
+                    q.setLink(newNode);
+                    q = q.getLink();
+                }
                 if (q.getSw() == 0){
-                    if(q.getLink() == null && test.getData() == father){
-                        q.setLink(newNode);
-                        q = q.getLink();
-                    }else if(q.getData() == father && test != q){
+                    if(q.getData() == father && test != q){
                         q.setSw(1);
                         Node newFather = new Node(father);
                         q.setLinkList(newFather);
@@ -138,15 +139,12 @@ public class NTree {
         return leafs;
     }
 
-    public int gradeTree(Node p, int grade) {
+    public int gradeTree(Node p, int grade) {//pendiente+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Node q = p;
         while (q != null){
             if(p != q)
                 grade = grade + 1;
-            if (q.getSw() == 0){
-                if (p != q)
-                    grade = grade + 1;
-            }else{
+            if (q.getSw() != 0){
                 grade = gradeTree(q.getLinkList(), grade);
             }
             q = q.getLink();
@@ -155,7 +153,7 @@ public class NTree {
     }
 
     void gradeData(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     void DataSons(Node root) {
