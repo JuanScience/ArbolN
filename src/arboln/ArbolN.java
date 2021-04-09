@@ -43,6 +43,7 @@ public class ArbolN {
 
                     case 3:  //Eliminar
                         eraseMenu();
+                        JOptionPane.showMessageDialog(null,"Dato eliminado");
                         break;
 
                     case 4: //Mostrar raíz
@@ -125,7 +126,9 @@ public class ArbolN {
                         if(N.getRoot() == null)
                             JOptionPane.showMessageDialog(null, "El árbol está vacío");
                         else{
-                            JOptionPane.showMessageDialog(null, "El árbol es de altura : " + N.showHigh(N.getRoot(), 1));
+                            if(N.getRoot() != null){
+                                JOptionPane.showMessageDialog(null, "El árbol es de altura : " + N.showHigh(N.getRoot(), 1, 1));
+                            }                         
                         }
                         break;
 
