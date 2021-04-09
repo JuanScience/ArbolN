@@ -53,7 +53,7 @@ public class NTree {
     }
     
     //Ingresa un dato dado
-    public void insert(Node fatherNode, Node newNode, int father){ //Revisar????????????????????????????????????????????????????????????????????
+    public void insert(Node fatherNode, Node newNode, int father){ 
         if (this.getRoot() != null){
             Node q = fatherNode;
             Node test = fatherNode;
@@ -61,6 +61,7 @@ public class NTree {
                 if(q.getLink() == null && test.getData() == father){
                     q.setLink(newNode);
                     q = q.getLink();
+                    JOptionPane.showMessageDialog(null,"Dato ingresado");
                 }
                 if (q.getSw() == 0){
                     if(q.getData() == father && test != q){
@@ -68,19 +69,63 @@ public class NTree {
                         Node newFather = new Node(father);
                         q.setLinkList(newFather);
                         newFather.setLink(newNode);
+                        JOptionPane.showMessageDialog(null,"Dato ingresado");
                     }
                 }else{
                     insert(q.getLinkList(), newNode, father);
                 }
                 q = q.getLink();
             }
-        }else
+        }else{
             this.setRoot(newNode);
+            JOptionPane.showMessageDialog(null,"Dato ingresado");
+        }
     }
     
-    //Ingresa un dato dado
-    public void erase(){
-        this.setRoot(null);
+    //Borra un dato en el árbol
+    public void erase(Node p, int data){
+        Node q = p;
+        Node ant = q;
+        if(q.getData() == data && q.getLink() != null){ // dato en un padre
+            int newFather = bigSon(q); //Busca el hijo mayor
+            erase(q, newFather);//eliminar el hijo mayor
+            q.setData(newFather);
+        }
+        
+        if (q.getLink() != null){
+            q = q.getLink();
+        }
+
+        while (q != null){
+            if (q.getSw() == 0){
+                if(q.getData() == data){ //dato es una hoja
+                    ant.setLink(q.getLink());
+                }
+            }else{
+                erase(q.getLinkList(), data);
+            }
+            ant = q;
+            q = q.getLink();
+        }
+    }
+    
+    public int bigSon(Node p){ //Busca el mayor de los hijos de una Nodo padre
+        int big;
+        if(p.getLink().getSw() == 0){
+            big = p.getLink().getData();
+        }else{
+            big = p.getLink().getLinkList().getData();
+        }
+        p = p.getLink();
+        while(p != null){
+            if(p.getSw() == 0 && p.getData() > big){
+                big = p.getData();
+            }else if(p.getSw() == 1 && p.getLinkList().getData() > big){
+                big = p.getData();
+            }
+            p = p.getLink();
+        }            
+        return big;
     }
 
     public boolean searchData(Node p, int data, boolean answer) {
@@ -139,11 +184,18 @@ public class NTree {
         return leafs;
     }
 
-    public int gradeTree(Node p, int grade) {//pendiente+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public int gradeTree(Node p, int grade) {
         Node q = p;
+        int aux = 0;
+        q = q.getLink();
         while (q != null){
-            if(p != q)
-                grade = grade + 1;
+            aux++;
+            q = q.getLink();
+        }
+        if (aux > grade)
+            grade = aux;
+        q = p;
+        while (q != null){
             if (q.getSw() != 0){
                 grade = gradeTree(q.getLinkList(), grade);
             }
@@ -152,44 +204,95 @@ public class NTree {
         return grade;
     }
 
-    void gradeData(Node root) {
-        
+    public int gradeData(Node p, int data, int grade) {
+        Node q = p;
+        while (q != null){
+            if (q.getSw() == 0){
+                if(q.getData() == data && q == p){
+                    q = q.getLink();
+                    while(q != null){
+                        grade++;
+                        q = q.getLink();
+                    }
+                    q = p;
+                }
+            }else{
+                grade = gradeData(q.getLinkList(), data, grade);
+            }
+            q = q.getLink();
+        }
+        return grade;
     }
 
-    void DataSons(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String dataSons(Node p, int data, String answer) {
+        Node q = p;
+        while (q != null){
+            if (q.getSw() == 0){
+                if(q.getData() == data && q == p){
+                    q = q.getLink();
+                    while(q != null){
+                        if(q.getSw() == 0)
+                            answer = answer + " " + q.getData();
+                        else
+                            answer = answer + " " + q.getLinkList().getData();
+                        q = q.getLink();
+                    }
+                    q = p;
+                }
+            }else{
+                answer = dataSons(q.getLinkList(), data, answer);
+            }
+            q = q.getLink();
+        }
+        return answer;
     }
 
-    void showLevel(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int showLevel(Node p, int data, int high, int level) {
+        Node q = p;
+        while (q != null){
+            if (q.getSw() == 0){
+                if(q.getData() == data && p == q)
+                    level = high - 1;
+                else if(q.getData() == data)
+                    level = high;
+            }else{
+                level = showLevel(q.getLinkList(), data, high++, level);
+            }
+            q = q.getLink();
+        }
+        return level;
     }
 
-    void showHIgh(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int showHigh(Node p, int high) {
+        Node q = p;
+        while (q != null){
+            if (q.getSw() != 0){
+                int aux = showHigh(q.getLinkList(), high++);
+                if (aux > high)
+                    high = aux;
+            }
+            q = q.getLink();
+        }
+        return high;
     }
 
-    void fatherData(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void fatherData(Node p, int data) {
+        Node q = p;
+        while (q != null){
+            if (q.getSw() == 0){
+                if(q.getData() == data && p != q)
+                    JOptionPane.showMessageDialog(null, "El padre de " + data + " es: " + p.getData());
+            }else{
+                if (q.getLinkList().getData() == data)
+                    JOptionPane.showMessageDialog(null, "El padre de " + data + " es: " + p.getData());
+                fatherData(q.getLinkList(), data);
+            }
+            q = q.getLink();
+        }
     }
     
+    public void clean(){
+        this.setRoot(null);
+    }
     
-
-    /**
-     *  + Arbol_n_ario(Inicializar raiz en null) 
-        T Void Mostrar(Nodo p)
-        T Nodo getRaiz() 
-        P void insertar(Entero dato) 
-        + void eliminar(Entero dato) 
-        + void buscarDato(Entero dato) 
-        + void mostrarRaices(Nodo p) 
-        + int contarHojas(Nodo p) 
-        + void mostrarhojas(Nodo p) 
-        + void mostrar gradoArbol(Nodo p) 
-        + void mostrargradoDatodado(Entero dato) 
-        + void mostrarhijos Datodado(Nodo p ,Entero dato) + void mostrarNivel(Nodo p ,Entero d) 
-        + void mostrarAltura(Nodo p) 
-        + void mostrarPadreDatoDado(Entero dato)
-        
-        (+ Pendiente, T falta probar, P programando, F finalizado)
-     */
 }
