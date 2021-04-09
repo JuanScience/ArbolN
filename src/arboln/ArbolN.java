@@ -41,7 +41,7 @@ public class ArbolN {
                         insert();
                         break;
 
-                    case 3: N.erase(); //Eliminar++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    case 3:  //Eliminar++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                         break;
 
                     case 4: //Mostrar raíz
@@ -111,7 +111,7 @@ public class ArbolN {
                     case 14: N.fatherData(N.getRoot());
                         break;
                         
-                    case 15: N.setRoot(null);
+                    case 15: N.erase();
                         break;
 
                     case 0: System.exit(0);
