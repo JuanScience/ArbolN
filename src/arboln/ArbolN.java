@@ -38,10 +38,11 @@ public class ArbolN {
                         break;
 
                     case 2: //Insertar
-                        insert();
+                        insertMenu();
                         break;
 
-                    case 3:  //Eliminar++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    case 3:  //Eliminar
+                        eraseMenu();
                         break;
 
                     case 4: //Mostrar raíz
@@ -96,22 +97,47 @@ public class ArbolN {
                         }
                         break;
 
-                    case 10: N.gradeData(N.getRoot());
+                    case 10: //Grado de un dato
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            gradeDataMenu();
+                        }
                         break;
 
-                    case 11: N.DataSons(N.getRoot());
+                    case 11: //Muestra los hijos de un dato dado
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            dataSonsMenu();
+                        }
                         break;
 
-                    case 12: N.showLevel(N.getRoot());
+                    case 12: //Muestra el nivel de un dato
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            showLevelMenu();
+                        }
                         break;
                     
-                    case 13: N.showHIgh(N.getRoot());
+                    case 13: //Muestra la altura del árbol
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            JOptionPane.showMessageDialog(null, "El árbol es de altura : " + N.showHigh(N.getRoot(), 1));
+                        }
                         break;
 
-                    case 14: N.fatherData(N.getRoot());
+                    case 14: //Muestra el padre de un dato dado
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            fatherDataMenu();
+                        }
                         break;
                         
-                    case 15: N.erase();
+                    case 15: N.clean();
                         break;
 
                     case 0: System.exit(0);
@@ -123,7 +149,7 @@ public class ArbolN {
         }while(option != 0);       
     }
 
-    public static void insert() {
+    public static void insertMenu() {
         String mData = "***Ingreso***"
                 + "\nPor favor ingrese el dato a ingresar en el árbol:";
         String mFather = "***Ingreso***"
@@ -152,8 +178,27 @@ public class ArbolN {
            JOptionPane.showMessageDialog(null, "Opción no válida");
         }
     }
+    
+    public static void eraseMenu() {
+        String mData = "***Eliminar***"
+                + "\nPor favor ingrese el dato a eliminar en el árbol:";
+        int option = -1;
+        try{
+            option = Integer.parseInt(JOptionPane.showInputDialog(mData));
+            if(N.searchData(N.getRoot(), option, false)){
+                if(N.getRoot().getData() == option && N.getRoot().getLink() == null)
+                    N.clean();
+                else
+                    N.erase(N.getRoot(), option);
+            }else{
+                JOptionPane.showMessageDialog(null, "El dato no está en el árbol");
+            }
+        }catch(NumberFormatException ex){
+           JOptionPane.showMessageDialog(null, "Opción no válida");
+        }
+    }
 
-    private static void searchDataMenu() {
+    public static void searchDataMenu() {
         String mSearchData = "***Buscar***"
                 + "\nPor favor ingrese el dato a buscar en el árbol:";
         int option = -1;
@@ -169,5 +214,74 @@ public class ArbolN {
            JOptionPane.showMessageDialog(null, "Opción no válida");
         }
     }
+
+    private static void gradeDataMenu() { 
+        String mSearchData = "***Grado de dato***"
+                + "\nPor favor ingrese el dato a buscar en el árbol:";
+        int option = -1;
+        
+        try{
+            option = Integer.parseInt(JOptionPane.showInputDialog(mSearchData));
+            if(N.searchData(N.getRoot(), option, false))
+                JOptionPane.showMessageDialog(null, "El grado del nodo " + option + " es: " + N.gradeData(N.getRoot(), option, 0));
+            else
+                JOptionPane.showMessageDialog(null, "El dato no se encuentra en el árbol");     
+        }catch(NumberFormatException ex){
+           JOptionPane.showMessageDialog(null, "Opción no válida");
+        }
+    }
+
+    private static void dataSonsMenu() {
+        String mSearchData = "***Hijos de dato***"
+                + "\nPor favor ingrese el dato a buscar en el árbol:";
+        int option = -1;
+        
+        try{
+            option = Integer.parseInt(JOptionPane.showInputDialog(mSearchData));
+            if(N.searchData(N.getRoot(), option, false)){
+                String answer = "";
+                JOptionPane.showMessageDialog(null, "Los hijos de " + option + " son: " + N.dataSons(N.getRoot(), option, answer));
+            }else
+                JOptionPane.showMessageDialog(null, "El dato no se encuentra en el árbol");     
+        }catch(NumberFormatException ex){
+           JOptionPane.showMessageDialog(null, "Opción no válida");
+        }
+    }
+
+    private static void showLevelMenu() {
+        String mSearchData = "***Nivel de dato***"
+                + "\nPor favor ingrese el dato a buscar en el árbol:";
+        int option = -1;
+        
+        try{
+            option = Integer.parseInt(JOptionPane.showInputDialog(mSearchData));
+            if(N.searchData(N.getRoot(), option, false)){
+                JOptionPane.showMessageDialog(null, "El nivel de " + option + " es: " + N.showLevel(N.getRoot(), option, 1, 0));
+            }else
+                JOptionPane.showMessageDialog(null, "El dato no se encuentra en el árbol");     
+        }catch(NumberFormatException ex){
+           JOptionPane.showMessageDialog(null, "Opción no válida");
+        }
+    }
+
+    private static void fatherDataMenu() { //N.fatherData(N.getRoot());
+        String mData = "***Padre de dato***"
+                + "\nPor favor ingrese el dato a consultar:";
+        int option = -1;
+        try{
+            option = Integer.parseInt(JOptionPane.showInputDialog(mData));
+            if(N.searchData(N.getRoot(), option, false)){
+                if(N.getRoot().getData() == option)
+                    JOptionPane.showMessageDialog(null, "El dato se encuentra en la raíz del árbol");
+                else
+                    N.fatherData(N.getRoot(), option);
+            }else{
+                JOptionPane.showMessageDialog(null, "El dato no está en el árbol");
+            }
+        }catch(NumberFormatException ex){
+           JOptionPane.showMessageDialog(null, "Opción no válida");
+        }
+    }
+
     
 }
