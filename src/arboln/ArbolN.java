@@ -256,7 +256,7 @@ public class ArbolN {
         try{
             option = Integer.parseInt(JOptionPane.showInputDialog(mSearchData));
             if(N.searchData(N.getRoot(), option, false)){
-                JOptionPane.showMessageDialog(null, "El nivel de " + option + " es: " + N.showLevel(N.getRoot(), option, 1, 0));
+                JOptionPane.showMessageDialog(null, "El nivel de " + option + " es: " + N.showLevel(N.getRoot(), option, 2, 0));
             }else
                 JOptionPane.showMessageDialog(null, "El dato no se encuentra en el árbol");     
         }catch(NumberFormatException ex){
