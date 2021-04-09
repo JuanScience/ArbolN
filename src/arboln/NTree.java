@@ -90,6 +90,7 @@ public class NTree {
             int newFather = bigSon(q); //Busca el hijo mayor
             erase(q, newFather);//eliminar el hijo mayor
             q.setData(newFather);
+            JOptionPane.showMessageDialog(null,"Dato eliminado");
         }
         
         if (q.getLink() != null){ 
@@ -100,6 +101,7 @@ public class NTree {
             if (q.getSw() == 0){
                 if(q.getData() == data){ //dato es una hoja
                     ant.setLink(q.getLink());
+                    JOptionPane.showMessageDialog(null,"Dato eliminado");
                 }
             }else{
                 erase(q.getLinkList(), data);
@@ -261,7 +263,9 @@ public class NTree {
                 else if(q.getData() == data)
                     level = high;
             }else{
-                showLevel(q.getLinkList(), data, high++, level);
+                high++;
+                level = showLevel(q.getLinkList(), data, high, level);
+                high--;
             }
             q = q.getLink();
         }
