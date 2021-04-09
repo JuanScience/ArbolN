@@ -28,7 +28,7 @@ public class ArbolN {
                 option = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch(option)
                 {
-                    case 1: 
+                    case 1: //Mostrar árbol
                         if(N.getRoot() == null)
                             JOptionPane.showMessageDialog(null, "El árbol está vacío");
                         else{
@@ -37,14 +37,14 @@ public class ArbolN {
                         }
                         break;
 
-                    case 2:
+                    case 2: //Insertar
                         insert();
                         break;
 
-                    case 3: N.erase();
+                    case 3: N.erase(); //Eliminar
                         break;
 
-                    case 4: 
+                    case 4: //Mostrar raíz
                         if(N.getRoot() == null){
                             JOptionPane.showMessageDialog(null, "El árbol está vacío");
                         }else{
@@ -52,7 +52,7 @@ public class ArbolN {
                         }
                         break;
                     
-                    case 5: 
+                    case 5: //Buscar dato
                         if(N.getRoot() == null){
                             JOptionPane.showMessageDialog(null, "El árbol está vacío");
                         }else{
@@ -60,14 +60,26 @@ public class ArbolN {
                         }
                         break;
 
-                    case 6: String answer = "";
-                        JOptionPane.showMessageDialog(null, "Las raices del árbol son: " + N.showRoots(N.getRoot(), answer));
+                    case 6: //Mostrar raices
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            String answer = ""; 
+                            JOptionPane.showMessageDialog(null, "Las raices del árbol son: " + N.showRoots(N.getRoot(), answer));
+                        }
                         break;
 
-                    case 7: N.countLeafs(N.getRoot());
+                    case 7: //Contar hojas
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            int leafs = 0;
+                            JOptionPane.showMessageDialog(null, "Las hojas del árbol son: " + N.countLeafs(N.getRoot(), leafs));
+                        }
                         break;
 
-                    case 8: N.showLeafs(N.getRoot());
+                    case 8: //Mostrar hojas
+                        N.showLeafs(N.getRoot());
                         break;
                     
                     case 9: N.gradeTree(N.getRoot());
