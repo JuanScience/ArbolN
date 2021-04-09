@@ -124,12 +124,34 @@ public class NTree {
         return leafs;
     }
 
-    void showLeafs(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String showLeafs(Node p, String leafs) {
+        Node q = p;
+        while (q != null){
+            if (q.getSw() == 0){
+                if (p != q)
+                    leafs = leafs + q.getData() + " ";
+            }else{
+                leafs = showLeafs(q.getLinkList(), leafs);
+            }
+            q = q.getLink();
+        }
+        return leafs;
     }
 
-    void gradeTree(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int gradeTree(Node p, int grade) {
+        Node q = p;
+        while (q != null){
+            if(p != q)
+                grade = grade + 1;
+            if (q.getSw() == 0){
+                if (p != q)
+                    grade = grade + 1;
+            }else{
+                grade = gradeTree(q.getLinkList(), grade);
+            }
+            q = q.getLink();
+        }
+        return grade;
     }
 
     void gradeData(Node root) {
