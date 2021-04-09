@@ -41,7 +41,7 @@ public class ArbolN {
                         insert();
                         break;
 
-                    case 3: N.erase(); //Eliminar
+                    case 3: N.erase(); //Eliminar++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                         break;
 
                     case 4: //Mostrar raíz
@@ -79,10 +79,21 @@ public class ArbolN {
                         break;
 
                     case 8: //Mostrar hojas
-                        N.showLeafs(N.getRoot());
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            String answer = "";
+                            JOptionPane.showMessageDialog(null, "Las hojas del árbol son: " + N.showLeafs(N.getRoot(), answer));
+                        }
                         break;
                     
-                    case 9: N.gradeTree(N.getRoot());
+                    case 9: //Grado del árbol
+                        if(N.getRoot() == null)
+                            JOptionPane.showMessageDialog(null, "El árbol está vacío");
+                        else{
+                            int grade = 0;
+                            JOptionPane.showMessageDialog(null, "El árbol es de grado : " + N.gradeTree(N.getRoot(), grade));
+                        }
                         break;
 
                     case 10: N.gradeData(N.getRoot());
@@ -121,17 +132,17 @@ public class ArbolN {
         
         try{
             option = Integer.parseInt(JOptionPane.showInputDialog(mData));
-            if(!N.searchData(N.getRoot(), option, true)){
+            if(!N.searchData(N.getRoot(), option, false)){
                 Node newNode = new Node(option);
                 if(N.getRoot() == null){
                     N.insert(N.getRoot(), newNode, 0);
                 }
                 else{
                     int father = Integer.parseInt(JOptionPane.showInputDialog(mFather));
-                    if(N.searchData(N.getRoot(), father, true)){
+                    if(N.searchData(N.getRoot(), father, false)){
                         N.insert(N.getRoot(), newNode, father);
                     }else{
-                        JOptionPane.showMessageDialog(null, "El padre seleccionado no existe");
+                        JOptionPane.showMessageDialog(null, "El padre ingresado no existe");
                     }
                 }
             }else{
