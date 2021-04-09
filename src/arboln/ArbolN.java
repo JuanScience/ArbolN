@@ -60,7 +60,8 @@ public class ArbolN {
                         }
                         break;
 
-                    case 6: N.showRoots(N.getRoot());
+                    case 6: String answer = "";
+                        JOptionPane.showMessageDialog(null, "Las raices del árbol son: " + N.showRoots(N.getRoot(), answer));
                         break;
 
                     case 7: N.countLeafs(N.getRoot());
@@ -108,13 +109,21 @@ public class ArbolN {
         
         try{
             option = Integer.parseInt(JOptionPane.showInputDialog(mData));
-            Node newNode = new Node(option);
-            if(N.getRoot() == null){
-                N.insert(N.getRoot(), newNode, 0);
-            }
-            else{
-                int father = Integer.parseInt(JOptionPane.showInputDialog(mFather));
-                N.insert(N.getRoot(), newNode, father);
+            if(!N.searchData(N.getRoot(), option, true)){
+                Node newNode = new Node(option);
+                if(N.getRoot() == null){
+                    N.insert(N.getRoot(), newNode, 0);
+                }
+                else{
+                    int father = Integer.parseInt(JOptionPane.showInputDialog(mFather));
+                    if(N.searchData(N.getRoot(), father, true)){
+                        N.insert(N.getRoot(), newNode, father);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "El padre seleccionado no existe");
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "El dato ya está ingresado en el árbol");
             }
         }catch(NumberFormatException ex){
            JOptionPane.showMessageDialog(null, "Opción no válida");
