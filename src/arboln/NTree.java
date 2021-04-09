@@ -103,15 +103,25 @@ public class NTree {
                 if (p == q)
                     roots = roots + q.getData() + " ";
             }else{
-                roots = showTree(q.getLinkList(), roots);
+                roots = showRoots(q.getLinkList(), roots);
             }
             q = q.getLink();
         }
         return roots;
     }
 
-    void countLeafs(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int countLeafs(Node p, int leafs) {
+        Node q = p;
+        while (q != null){
+            if (q.getSw() == 0){
+                if (p != q)
+                    leafs = leafs + 1;
+            }else{
+                leafs = countLeafs(q.getLinkList(), leafs);
+            }
+            q = q.getLink();
+        }
+        return leafs;
     }
 
     void showLeafs(Node root) {
