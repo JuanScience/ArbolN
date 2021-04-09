@@ -96,8 +96,18 @@ public class NTree {
         return answer;
     }
 
-    void showRoots(Node root) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String showRoots(Node p, String roots) {
+        Node q = p;
+        while (q != null){
+            if (q.getSw() == 0){
+                if (p == q)
+                    roots = roots + q.getData() + " ";
+            }else{
+                roots = showTree(q.getLinkList(), roots);
+            }
+            q = q.getLink();
+        }
+        return roots;
     }
 
     void countLeafs(Node root) {
