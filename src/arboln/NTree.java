@@ -92,7 +92,7 @@ public class NTree {
             q.setData(newFather);
         }
         
-        if (q.getLink() != null){
+        if (q.getLink() != null){ 
             q = q.getLink();
         }
 
@@ -261,7 +261,7 @@ public class NTree {
                 else if(q.getData() == data)
                     level = high;
             }else{
-                level = showLevel(q.getLinkList(), data, high++, level);
+                showLevel(q.getLinkList(), data, high++, level);
             }
             q = q.getLink();
         }
